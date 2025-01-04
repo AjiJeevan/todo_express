@@ -49,7 +49,9 @@ router.post("/login",async (req,res)=>{
 })
 
 router.post("/check-token",(req,res)=>{
-    let token = req.body.token
+    let authHeader = req.headers['authorization'];
+    let token = authHeader && authHeader.split(' ')[1];
+    // let token = req.body.token
     let user = jwt.verify(token,encryptKey)
     console.log(user)
     if(user.email){
